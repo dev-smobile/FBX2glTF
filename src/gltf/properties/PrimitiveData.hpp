@@ -75,6 +75,8 @@ struct PrimitiveData {
 
   std::shared_ptr<draco::Mesh> dracoMesh;
   int dracoBufferView;
+
+  json targetNames; // by jspark
 };
 
 void to_json(json& j, const PrimitiveData& d);

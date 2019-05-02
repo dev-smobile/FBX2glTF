@@ -21,14 +21,16 @@ PrimitiveData::PrimitiveData(
       material(material.ix),
       mode(TRIANGLES),
       dracoMesh(dracoMesh),
-      dracoBufferView(-1) {}
+      dracoBufferView(-1),
+      targetNames(json::array()) {}
 
 PrimitiveData::PrimitiveData(const AccessorData& indices, const MaterialData& material)
     : indices(indices.ix),
       material(material.ix),
       mode(TRIANGLES),
       dracoMesh(nullptr),
-      dracoBufferView(-1) {}
+      dracoBufferView(-1),
+      targetNames(json::array()) {}
 
 void PrimitiveData::AddAttrib(std::string name, const AccessorData& accessor) {
   attributes[name] = accessor.ix;
@@ -46,7 +48,9 @@ void PrimitiveData::AddTarget(
       positions->ix,
       normals != nullptr ? normals->ix : -1,
       tangents != nullptr ? tangents->ix : -1));
+  targetNames.push_back(positions->name);  // by jspark
 }
+
 
 void to_json(json& j, const PrimitiveData& d) {
   j = {{"material", d.material}, {"mode", d.mode}, {"attributes", d.attributes}};

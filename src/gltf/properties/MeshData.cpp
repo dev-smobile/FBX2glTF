@@ -22,5 +22,9 @@ json MeshData::serialize() const {
   if (!weights.empty()) {
     result["weights"] = weights;
   }
+  
+  result["extras"] = {
+    {"targetNames", primitives[0]->targetNames}
+  };
   return result;
 }
